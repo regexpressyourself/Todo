@@ -1,0 +1,169 @@
+* Integrations
+
+** Github
+
+   Issues can be tied to github issues. Application will support:
+   1. Creating a new issue
+   2. importing an existing issue
+   3. closing an issue
+
+** Google Calendar
+
+   Issues can also be tied to Google Calendar. Application will support:
+   1. Dsiplay tasks on google calendar
+
+* Components
+
+** Project
+
+   A project is a wrapper for a set of tasks. A project contains:
+   1. A set of stages for the project
+   2. The issues in the project, tied to a given stage
+
+*** View-specific functionality
+
+**** Kanban View
+
+     Each project will have its own kanban board. These boards do not support multiple views.
+
+**** Todo View
+
+     Each project will have its own Todo list. Multiple projects can be viewed at once
+
+**** Calendar View
+
+     Each project will have its own Calendar. Multiple projects can be viewed at once
+
+** Stage
+
+   Stages are more nebulous than projects. They is not necessarily apparent in every view, but will be tied to every project nonetheless. 
+
+   Stages contain:
+
+   2. A Name
+   3. A list of issues in the stage
+
+   Stages can be anything from {todo, doing, done} to {math class, physics class, english class} and anywhere in between. They are meant to be flexible enough to fit different task management strategies.
+
+*** Templates
+
+    The application will provide templates for stages. v1.0 will include:
+    1. Kanban Template
+       - Todo
+       - Doing
+       - Done
+    2. School Template
+       - Class 1
+       - Class 2
+       - Class 3
+    3. Office Template
+       - Current Tasks
+       - Correspondence
+       - Long term projects
+       - On Hold/Awaiting Reply
+
+*** Custom Stages
+
+    Users can also create their own stages, and will be prompted for the name for each stage
+
+*** View-specific functionality
+
+**** Kanban View
+
+     In kanban view, stages represent the lists, or columns, of the board. 
+
+     The traditional kanban view uses different levels of completion for each stage, but stages can be adjusted to any categorization.
+
+**** Todo View
+
+     The priority level of each stage will dictate which items end up at the top of the list. Stages will be otherwise invisible in todo list mode.
+
+**** Calendar View
+
+     Stages will be visible in single-project calendar view only. 
+
+     If one project is being viewed, different stages will have different colors. If multiple calendars are being viewed, the calendars will each be monochromatic, and stages will be essentially invisible.
+
+** Issue
+
+   Issues are the smallest component. Issues contain:
+   1. Title for issue
+   2. Stage of the issue (from available stages in the project)
+   3. Description
+   4. Due Date
+   5. Priority level (secondary priority to stage's priority)
+
+*** View-specific functionality
+
+**** Kanban View
+
+     In kanban view, issues are the individual cards.
+
+***** Stage
+
+      Stage can be set manually or by dragging issue to the appropriate list.
+
+***** Priority
+
+      Priority within the current stage can be set manually or by dragging issue up the list.
+
+**** Todo View
+
+***** Priority
+
+      Priority can be set manually or by dragging issue up the list.
+
+**** Calendar View
+
+     Issues will be placed on their due date in the calendar
+
+* Views
+
+** Miscellaneous
+   1. Home page
+   2. Log in page
+   3. Account dashboard
+      - View all projects
+
+** Users
+   - Login screen
+   - Create account screen
+   - Forgot password screen
+   - edit data screen
+
+** Calendar
+
+
+    See issues organized by due date on a calendar. 
+
+    - Calendar view can support any number of projects' issues at a time
+    - If one project is being viewed, color different stages differently
+    - If >1 project is being viewed, color different calendars differently
+    - Items without a due date will not be displayed. 
+
+*** Invisible items
+
+    1. Priority
+    2. description
+    3. stage (if in multiple-project view)
+
+** Kanban
+
+   See issues categorized by stage in a kanban board
+
+   - Kanban boards are only able to view one project at a time
+
+*** Invisible items
+
+    1. Description
+
+** Todo
+
+   See issues organized by priority on a list 
+
+   - Todo view can support any number of projects' issues at a time
+   - issues without priority set will be placed at bottom
+
+*** Invisible items
+
+    1. Stage
