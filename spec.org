@@ -1,4 +1,3 @@
-
 * Integrations
 
 ** Github
@@ -39,12 +38,23 @@
 
    Stages are more nebulous than projects. They is not necessarily apparent in every view, but will be tied to every project nonetheless. 
 
-   Stages contain:
-
-   2. A Name
-   3. A list of issues in the stage
+   All issues must be given a stage. One stage will be set as the default, allowing users to not have to worry about chosing a stage at issue inception.
 
    Stages can be anything from {todo, doing, done} to {math class, physics class, english class} and anywhere in between. They are meant to be flexible enough to fit different task management strategies.
+
+*** Stage state
+
+**** A Name (required)
+
+     Just a name for the stage
+
+**** A list of issues in the stage
+
+     May not actually be tied to the stage itself.
+
+**** A priority level (optional)
+
+     Optional priority level for stages can be set. This priority level is identical to the issue's priority level.
 
 *** Templates
 
@@ -63,9 +73,9 @@
        - Long term projects
        - On Hold/Awaiting Reply
 
-*** Custom Stages
+**** Custom Stages
 
-    Users can also create their own stages, and will be prompted for the name for each stage
+     Users can also create their own stages, and will be prompted for the name for each stage
 
 *** View-specific functionality
 
@@ -75,9 +85,15 @@
 
      The traditional kanban view uses different levels of completion for each stage, but stages can be adjusted to any categorization.
 
+     Order of the stages can be set either manually or by dragging columns
+
 **** Todo View
 
-     The priority level of each stage will dictate which items end up at the top of the list. Stages will be otherwise invisible in todo list mode.
+     Stages should be displayed in the todo list, given screen sizes (shouldn't be a problem)
+
+     If given a priority level, issues in a stage with higher priority will be placed at the top.
+
+     If one project is being viewed, different stages will have different colors. If multiple calendars are being viewed, the calendars will each be monochromatic, and stages will be essentially invisible.
 
 **** Calendar View
 
@@ -87,7 +103,7 @@
 
 ** Issue
 
-   Issues are the smallest component.
+   Issues are the smallest component. Issues can take on one of two forms: task or event. See due date for more.
 
 *** Issue state
 
@@ -104,6 +120,8 @@
      Description of the projects can have a wywiwyg editor in them.
 
 **** Due Date
+
+     Due date determines whether the issue is a task or event. Issues default to task, and will only be considered an event if the due date is of the "From x to y" variety.
 
      Issues can be assigned for:
      1) A due day
@@ -123,6 +141,8 @@
 **** Kanban View
 
      In kanban view, issues are the individual cards.
+
+     In kanban view, issues will display title, due date, priority level, and integrations
 
 ***** Stage
 
@@ -144,38 +164,35 @@
 
 * Views
 
-** Miscellaneous
-
-   1. Home page
-   2. Log in page
-   3. Account dashboard
-      - View all projects
-
 ** Users
 
    - Login screen
    - Create account screen
    - Forgot password screen
-   - edit data screen
+   - Account dashboard
+     - View all projects
+     - add project screen
 
 ** Navigation
 
-   Side bar to calendar and todo list will share a project navigation style.
+   - header
+   - Side bar to calendar and todo list will share a project navigation style.
 
 ** Calendar
 
+   See issues organized by due date on a calendar. 
 
-    See issues organized by due date on a calendar. 
-
-    - Calendar view can support any number of projects' issues at a time
-    - If one project is being viewed, color different stages differently
-    - If >1 project is being viewed, color different calendars differently
-    - Items without a due date will not be displayed. 
+   - Calendar view can support any number of projects' issues at a time
+   - If one project is being viewed, color different stages differently
+   - If >1 project is being viewed, color different calendars differently
+   - Items without a due date will not be displayed. 
 
      Calendar will have: 
      1. Month view showing five weeks
      2. week view
      3. day view
+
+     Calendar will also have a similar project navigation to the todo list view
 
 *** Invisible items
 
@@ -192,17 +209,22 @@
 *** Invisible items
 
     1. Description
+    2. Event issues
 
 ** Todo
 
-   See issues organized by priority on a list 
+   See issues organized by priority on a list. Stage priority takes precedence, then issues priority.
 
    - Todo view can support any number of projects' issues at a time
    - issues without priority set will be placed at bottom
+   - Stage will be displayed on the item as well, given screen size
+
+     Todo view will also share a project navigation pane with calendar.
 
 *** Invisible items
 
     1. Stage
+    2. Event issues
 
 
 
