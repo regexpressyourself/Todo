@@ -1,3 +1,4 @@
+
 * Integrations
 
 ** Github
@@ -86,12 +87,36 @@
 
 ** Issue
 
-   Issues are the smallest component. Issues contain:
-   1. Title for issue
-   2. Stage of the issue (from available stages in the project)
-   3. Description
-   4. Due Date
-   5. Priority level (secondary priority to stage's priority)
+   Issues are the smallest component.
+
+*** Issue state
+
+**** Title for issue
+
+     Title should be a short description of the project. Long limits are better.
+
+**** Stage of the issue 
+
+     Stages in the project will be displayed. The project will have a default stage, which will be auto-selected.
+
+**** Description
+
+     Description of the projects can have a wywiwyg editor in them.
+
+**** Due Date
+
+     Issues can be assigned for:
+     1) A due day
+     2) A due day and time
+     3) A due time period (from x to y)
+     4) No due date
+
+**** Priority level 
+
+     Priority level can be set to one of three levels:
+     1. now
+     2. soon
+     3. later
 
 *** View-specific functionality
 
@@ -120,16 +145,22 @@
 * Views
 
 ** Miscellaneous
+
    1. Home page
    2. Log in page
    3. Account dashboard
       - View all projects
 
 ** Users
+
    - Login screen
    - Create account screen
    - Forgot password screen
    - edit data screen
+
+** Navigation
+
+   Side bar to calendar and todo list will share a project navigation style.
 
 ** Calendar
 
@@ -140,6 +171,11 @@
     - If one project is being viewed, color different stages differently
     - If >1 project is being viewed, color different calendars differently
     - Items without a due date will not be displayed. 
+
+     Calendar will have: 
+     1. Month view showing five weeks
+     2. week view
+     3. day view
 
 *** Invisible items
 
@@ -167,3 +203,12 @@
 *** Invisible items
 
     1. Stage
+
+
+
+
+
+
+
+
+
