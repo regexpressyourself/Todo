@@ -1,3 +1,8 @@
+#+OPTIONS: TOC:nil DATE:nil
+#+LATEX_HEADER: \usepackage[margin=1in]{geometry}
+#+AUTHOR: Sam Messina
+#+TITLE: CS 435 Term Project Proposal: Flowchart Creator
+
 * Integrations
 
 ** Github
@@ -191,6 +196,7 @@
      1. Month view showing five weeks
      2. week view
      3. day view
+     4. "schedule" view showing an inifinitely scrollable list of days
 
      Calendar will also have a similar project navigation to the todo list view
 
@@ -227,7 +233,24 @@
     2. Event issues
 
 
-
+* React components
+  1. Issue
+  2. List of issues
+     - By project
+     - By stage
+     - By due date
+  3. Todo
+     - List of issues by project
+  4. Day of issues
+     - List of issues by due date
+  5. Week of issues
+     - Just 7 days side by side
+  6. Month of issues
+     - Potentially just days
+  7. Schedule view
+     - Just day view over and over again
+  8. Kanban view
+     - List of issues by stage
 
 
 
