@@ -1,8 +1,3 @@
-#+OPTIONS: TOC:nil DATE:nil
-#+LATEX_HEADER: \usepackage[margin=1in]{geometry}
-#+AUTHOR: Sam Messina
-#+TITLE: CS 435 Term Project Proposal: Flowchart Creator
-
 * Helpful Links
 
 http://bulletjournal.com/
