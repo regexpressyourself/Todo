@@ -3,6 +3,10 @@
 #+AUTHOR: Sam Messina
 #+TITLE: CS 435 Term Project Proposal: Flowchart Creator
 
+* Helpful Links
+
+http://bulletjournal.com/
+
 * Integrations
 
 ** Github
@@ -251,9 +255,3 @@
      - Just day view over and over again
   8. Kanban view
      - List of issues by stage
-
-
-
-
-
-
