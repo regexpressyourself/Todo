@@ -1,6 +1,7 @@
 auto
 *.tex
 node_modules
+npm-debug.log
 client/node_modules
 client/build
 .env
