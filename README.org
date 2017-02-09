@@ -1,6 +1,6 @@
 * Helpful Links
 
-http://bulletjournal.com/
+  http://bulletjournal.com/
 
 * Integrations
 
@@ -250,3 +250,42 @@ http://bulletjournal.com/
      - Just day view over and over again
   8. Kanban view
      - List of issues by stage
+
+* Database design
+** Table: Users
+   - id
+   - name
+   - email
+   - password
+   - project list id
+   - issue list id
+** Table: Projects
+   - id
+   - user id
+   - stages (list)
+
+CREATE TABLE users    (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+name VARCHAR(50), 
+imagePath VARCHAR(50), 
+email VARCHAR(256), 
+password CHAR(128));
+
+CREATE TABLE projects (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+name VARCHAR(50), 
+userId INT NOT NULL,
+CONSTRAINT FOREIGN KEY (userId) REFERENCES users (id));
+
+CREATE TABLE stages   (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+name VARCHAR(50), 
+projectId INT NOT NULL,
+CONSTRAINT FOREIGN KEY (projectId) REFERENCES projects (id));
+
+CREATE TABLE issues   (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+name VARCHAR(50), 
+description TEXT, 
+dueDate DATETIME, 
+startTime DATETIME, 
+endTime DATETIME, 
+priority TINYINT,
+stageId INT NOT NULL,
+CONSTRAINT FOREIGN KEY (stageId) REFERENCES stages (id));
