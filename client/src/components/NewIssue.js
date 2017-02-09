@@ -15,12 +15,12 @@ class NewIssue extends React.Component {
     }
 
     getProjects() {
-        let _this = this;
         axios.get('/projects')
-             .then(function(response) {
-                 _this.createProjectBoxes(response);
+             .then((response) => {
+                 console.log(response);
+                 this.createProjectBoxes(response);
              })
-             .catch(function (error) {
+             .catch((error) => {
                  console.log(error);
              });
     }
@@ -30,8 +30,8 @@ class NewIssue extends React.Component {
         let projectList        = response.data;
 
         for (let i = 0; i < projectList.length; i++) {
-            let projectName = projectList[i].projectName;
-            let projectId   = projectList[i].projectId;
+            let projectName = projectList[i].name;
+            let projectId   = projectList[i].id;
             let gridNumber  = Math.floor(12 / projectList.length);
             let gridClass   = "mdl-cell mdl-cell--" +
                               gridNumber +
