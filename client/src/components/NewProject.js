@@ -6,7 +6,7 @@ class NewProject extends React.Component {
             <div>
                 <h2>New Project Form</h2>
                 <form method="post"
-                      action="/new-project">
+                      action="/api/new-project">
                     <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input className="mdl-textfield__input"
                                required

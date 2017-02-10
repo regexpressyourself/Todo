@@ -1,7 +1,7 @@
 import React from 'react';
 import App   from '../components/App';
 import Home  from '../components/Home';
-import Home  from '../components/EditProject';
+import EditProject from '../components/EditProject';
 import {Router,
         Route,
         browserHistory,

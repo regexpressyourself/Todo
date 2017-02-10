@@ -1,14 +1,12 @@
 import React from 'react';
-import Home from './Home';
 
 class App extends React.Component {
-  render() {
-    return (
-        <div>
-            <Home></Home>
-        </div>
-
-    )
-  }
+    render() {
+        return (
+            <div>
+                {React.cloneElement(this.props.children)}
+            </div>
+        )
+    }
 }
 export default App;
