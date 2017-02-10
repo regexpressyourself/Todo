@@ -17,7 +17,6 @@ class NewIssue extends React.Component {
     getProjects() {
         axios.get('/api/projects')
              .then((response) => {
-                 console.log(response);
                  this.createProjectBoxes(response);
              })
              .catch((error) => {
