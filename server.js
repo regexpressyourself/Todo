@@ -77,7 +77,7 @@ function parse_projects_list_from_db(project_list) {
     )
 }
 
-app.get('/projects', (req, res) => {
+app.get('/api/projects', (req, res) => {
     if (req.body) {
         get_projects_by_user_email(USEREMAIL, (project_list) => {
         res.send(project_list);
@@ -86,13 +86,13 @@ app.get('/projects', (req, res) => {
 
 })
 
-app.get('/stages', (req, res) => {
+app.get('/api/stages', (req, res) => {
 })
 
-app.get('/issues', (req, res) => {
+app.get('/api/issues', (req, res) => {
 })
 
-app.post('/new-project', (req, res) => {
+app.post('/api/new-project', (req, res) => {
     if (req.body && req.body["project-name"]) {
         add_new_project_by_user_email(req.body["project-name"], USEREMAIL);
         res.redirect('/');
@@ -100,10 +100,10 @@ app.post('/new-project', (req, res) => {
     }
 })
 
-app.post('/new-stage', (req, res) => {
+app.post('/api/new-stage', (req, res) => {
 })
 
-app.post('/new-issue', (req, res) => {
+app.post('/api/new-issue', (req, res) => {
 })
 
 app.listen(app.get('port'), () => {
