@@ -15,7 +15,7 @@ class NewIssue extends React.Component {
     }
 
     getProjects() {
-        axios.get('/projects')
+        axios.get('/api/projects')
              .then((response) => {
                  console.log(response);
                  this.createProjectBoxes(response);
@@ -72,7 +72,7 @@ class NewIssue extends React.Component {
             <div>
             <h2>New Issue Form</h2>
                 <form method="post"
-                      action="/new-issue">
+                      action="/api/new-issue">
                     <div className="mdl-grid">
                         {this.state.projectSelectBoxes}
                     </div>
