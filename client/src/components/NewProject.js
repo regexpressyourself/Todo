@@ -9,6 +9,7 @@ class NewProject extends React.Component {
                       action="/new-project">
                     <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input className="mdl-textfield__input"
+                               required
                                type="text"
                                name="project-name"
                                id="project-name" />
