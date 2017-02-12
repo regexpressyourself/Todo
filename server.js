@@ -40,7 +40,6 @@ app.post('/api/new-project', (req, res) => {
     if (req.body && req.body['project-name']) {
         add_project_by_email(req.body['project-name'], USEREMAIL);
         res.redirect('/');
-
     }
 });
 
@@ -48,6 +47,13 @@ app.post('/api/new-stage', (req, res) => {
 });
 
 app.post('/api/new-issue', (req, res) => {
+});
+
+app.post('/api/edit-project', (req, res) => {
+    if (req.body && req.body['project-name']) {
+        add_project_by_email(req.body['project-name'], USEREMAIL);
+        res.redirect('/');
+    }
 });
 
 app.listen(app.get('port'), () => {

@@ -1,4 +1,5 @@
 import React from 'react';
+require('../assets/css/main.scss');
 
 class App extends React.Component {
     render() {
