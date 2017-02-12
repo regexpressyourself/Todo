@@ -1,26 +1,27 @@
 import React from 'react';
 
-class NewProject extends React.Component {
+class EditProject extends React.Component {
+    constructor(props) {
+        super(props);
+    }
     render() {
         return (
             <div>
                 <h2>Edit Project Form</h2>
                 <form method="post"
-                      action="/api/new-project">
-                    <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input className="mdl-textfield__input"
-                               required
+                      action="/api/edit-project">
+                    <div>
+                        <input required
                                type="text"
                                name="project-name"
                                id="project-name" />
-                        <label className="mdl-textfield__label"
+                        <label
                                htmlFor="project-name">
                             Project Name
                         </label>
                     </div>
                     <br/>
-                    <button className='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'
-                            type="submit">
+                    <button type="submit">
                         Submit
                     </button>
                 </form>
@@ -28,4 +29,4 @@ class NewProject extends React.Component {
         )
     }
 }
-export default NewProject;
+export default EditProject;
