@@ -1,7 +1,8 @@
 import React from 'react';
+import {Container, Col4} from './Bootstrap';
 import axios from 'axios';
 
-class NewIssue extends React.Component {
+class Projects extends React.Component {
     constructor(props) {
         super(props);
         this.state= {
@@ -31,23 +32,22 @@ class NewIssue extends React.Component {
         for (let i = 0; i < projectList.length; i++) {
             let projectName = projectList[i].name;
             let projectId   = projectList[i].id;
-            let gridNumber  = Math.floor(12 / projectList.length);
 
-            projectSelectBoxes.push(this.createProjectSelectBox(i, 
-                                                                projectId,
+            projectSelectBoxes.push(this.createProjectSelectBox(projectId,
                                                                 projectName));
         }
         this.setState({projectSelectBoxes: projectSelectBoxes});
     }
 
-    createProjectSelectBox(i, projectId, projectName) {
+    createProjectSelectBox(projectId, projectName) {
         return (
-            <div key={i}
+            <Col4 className="project-select-box material-shadow"
+                 key={projectId}
                  onClick={() => this.selectProject(projectId)}>
                 <div>
                     <h4>{projectName}</h4>
                 </div>
-            </div>
+            </Col4>
         )
     }
 
@@ -63,32 +63,15 @@ class NewIssue extends React.Component {
 
     render() {
         return (
-            <div>
-            <h2>New Issue Form</h2>
-                <form method="post"
-                      action="/api/new-issue">
+            <Container>
+                <h1>
+                    Your Projects
+                </h1>
                     <div>
                         {this.state.projectSelectBoxes}
                     </div>
-                    <input name="issue-project-id"
-                           type="hidden"
-                           value={this.state.projectId}/>
-                    <br/>
-                    <div>
-                        <input type="text"
-                               name="issue-name"
-                               id="issue-name" />
-                        <label htmlFor="issue-name">
-                            Issue Name
-                        </label>
-                    </div>
-                    <br/>
-                    <button type="submit">
-                        Submit
-                    </button>
-                </form>
-            </div>
+            </Container>
         )
     }
 }
-export default NewIssue;
+export default Projects;

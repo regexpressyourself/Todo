@@ -1,7 +1,8 @@
 import React from 'react';
 import App   from '../components/App';
 import Home  from '../components/Home';
-import Home  from '../components/EditProject';
+import EditProject from '../components/EditProject';
+import Projects from '../components/Projects';
 import {Router,
         Route,
         browserHistory,
@@ -12,6 +13,7 @@ let routes = (
         <Route path='/' component={App}>
             <IndexRoute component={Home} />
             <Route path="/edit-project" component={EditProject}></Route>
+            <Route path="/projects" component={Projects}></Route>
         </Route>
     </Router>
 )
