@@ -1,5 +1,6 @@
 import React from 'react';
 import {Container, Col4} from './Bootstrap';
+import ProjectSelectBox from './ProjectSelectBox';
 import axios from 'axios';
 
 class Projects extends React.Component {
@@ -29,6 +30,11 @@ class Projects extends React.Component {
         let projectSelectBoxes = [];
         let projectList        = response.data;
 
+        projectList.unshift({
+            name:"New",
+            id: -1
+        });
+
         for (let i = 0; i < projectList.length; i++) {
             let projectName = projectList[i].name;
             let projectId   = projectList[i].id;
@@ -41,12 +47,10 @@ class Projects extends React.Component {
 
     createProjectSelectBox(projectId, projectName) {
         return (
-            <Col4 className="project-select-box material-shadow"
-                 key={projectId}
-                 onClick={() => this.selectProject(projectId)}>
-                <div>
-                    <h4>{projectName}</h4>
-                </div>
+            <Col4 key={projectId}>
+                <ProjectSelectBox projectId={projectId}
+                                  projectName={projectName}>
+                </ProjectSelectBox>
             </Col4>
         )
     }
