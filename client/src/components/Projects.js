@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, Col4} from './Bootstrap';
+import {Container, Col4, Row} from './Bootstrap';
 import ProjectSelectBox from './ProjectSelectBox';
 import axios from 'axios';
 
@@ -17,7 +17,11 @@ class Projects extends React.Component {
     }
 
     getProjects() {
-        axios.get('/api/projects')
+        axios.get('/api/projects', {
+            params: {
+                userId: 1
+            }
+        })
              .then((response) => {
                  this.createProjectBoxes(response);
              })
@@ -38,20 +42,23 @@ class Projects extends React.Component {
         for (let i = 0; i < projectList.length; i++) {
             let projectName = projectList[i].name;
             let projectId   = projectList[i].id;
+            let stageList   = projectList[i].stageList;
 
             projectSelectBoxes.push(this.createProjectSelectBox(projectId,
-                                                                projectName));
+                                                                projectName,
+                                                                stageList));
         }
         this.setState({projectSelectBoxes: projectSelectBoxes});
     }
 
-    createProjectSelectBox(projectId, projectName) {
+    createProjectSelectBox(projectId, projectName, stageList) {
         return (
-            <Col4 key={projectId}>
+            <div className="col-ph-12 col-xs-6 col-sm-4" key={projectId}>
                 <ProjectSelectBox projectId={projectId}
-                                  projectName={projectName}>
+                                  projectName={projectName}
+                                  stageList={stageList} >
                 </ProjectSelectBox>
-            </Col4>
+            </div>
         )
     }
 
@@ -68,12 +75,14 @@ class Projects extends React.Component {
     render() {
         return (
             <Container>
-                <h1>
-                    Your Projects
-                </h1>
-                    <div>
-                        {this.state.projectSelectBoxes}
-                    </div>
+                <Row>
+                    <h1>
+                        Your Projects
+                    </h1>
+                </Row>
+                <Row>
+                    {this.state.projectSelectBoxes}
+                </Row>
             </Container>
         )
     }

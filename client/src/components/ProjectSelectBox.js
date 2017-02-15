@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
+import EditProject from './EditProject';
 
 class ProjectSelectBox extends React.Component {
     constructor(props) {
@@ -8,6 +9,7 @@ class ProjectSelectBox extends React.Component {
             id: '',
             name: '',
             newProject: false,
+            stageList: [],
             isModalOpen: false
         }
         this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -26,6 +28,7 @@ class ProjectSelectBox extends React.Component {
         this.setState({
             id: this.props.projectId,
             name: this.props.projectName,
+            stageList: this.props.stageList,
             isNewProject: this.props.newProject || false
         });
     }
@@ -37,12 +40,14 @@ class ProjectSelectBox extends React.Component {
                      className="project-select-box">
                     <h4>{this.state.name}</h4>
                 </div>
-                    <Modal isOpen={this.state.showModal}
-                           contentLabel="onRequestClose Example"
-                           onRequestClose={this.handleCloseModal} >
-                        <p>Modal text!</p>
-                        <button onClick={this.handleCloseModal}>Close Modal</button>
-                    </Modal>
+
+                <Modal isOpen={this.state.showModal}
+                       contentLabel="{this.state.name} modal"
+                       onRequestClose={this.handleCloseModal}>
+                    <EditProject projectName={this.state.name}
+                                 projectId={this.state.id}
+                                 stageList={this.state.stageList}/>
+                </Modal>
             </div>
         )
     }

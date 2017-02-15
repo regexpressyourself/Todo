@@ -1,27 +1,46 @@
 import React from 'react';
+import {Container} from './Bootstrap';
 
 class EditProject extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            stageNames: []
+        }
     }
+
+    componentDidMount() {
+        this.setState({
+            stageNames: this.getStageNames()
+        });
+    }
+
+    getStageNames() {
+        return this.props.stageList.map((stage) => {
+            return stage.name;
+        });
+
+    }
+
     render() {
         return (
             <div>
-                <h2>Edit Project Form</h2>
+                <h3>{this.props.projectName}</h3>
                 <form method="post"
                       action="/api/edit-project">
-                    <div>
+                        <label htmlFor="project-name">
+                            Project Name
+                        </label>
                         <input required
+                               className="form-control"
+                               placeholder="Project Name"
                                type="text"
                                name="project-name"
                                id="project-name" />
-                        <label
-                               htmlFor="project-name">
-                            Project Name
-                        </label>
-                    </div>
                     <br/>
-                    <button type="submit">
+                    {this.state.stageNames}
+                    <button type="submit"
+                            className="btn btn-default">
                         Submit
                     </button>
                 </form>

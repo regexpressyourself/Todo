@@ -3,8 +3,9 @@ const app         = express();
 const bodyParser  = require('body-parser');
 const db          = require('./server_modules/db');
 
-let add_project_by_email  = db.add_project_by_email;
-let get_projects_by_email = db.get_projects_by_email;
+let add_project_by_email   = db.add_project_by_email;
+let get_projects_by_email  = db.get_projects_by_email;
+let get_projects_by_userid = db.get_projects_by_userid;
 
 app.use(bodyParser.json());     // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
@@ -22,12 +23,11 @@ const USEREMAIL = 'samuel.messina@gmail.com'; // TODO get user data from login
 //const USERID    = 1; // TODO get user id from login
 
 app.get('/api/projects', (req, res) => {
-    if (req.body) {
-        get_projects_by_email(USEREMAIL, (project_list) => {
+    if (req.query.userId && req.body) {
+        get_projects_by_userid(req.query.userId, (project_list) => {
             res.send(project_list);
         });
     }
-
 });
 
 app.get('/api/stages', (req, res) => {

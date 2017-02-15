@@ -2,24 +2,40 @@
  * Variables
  **************************************************/
 
+/* Colors */
 $background-color: #ECF0F1;
 $accent-color: #E74C3C;
 $dark-accent-color: #2C3E50;
 $generic-color-light: #3498DB;
 $generic-color-dark: #2980B9;
 
+/* Sizes */
+$bs-ph: 420px;
+$bs-xs: 768px;
+$bs-sm: 992px;
+$bs-md: 1200px;
+
 /*************************************************
  * Element-level rules
  **************************************************/
 
 body {
-    background: $background-color
+    background: $background-color;
+    width: 100%;
 }
 
 /*************************************************
  * Generic rules
  **************************************************/
 
+/* Bootstrap Overrides */
+.col-ph-12 {
+    @media screen and (max-width: $bs-ph) {
+        width: 100%;
+    }
+}
+
+/* General Generics (aka not sure how to classify these) */
 .material-shadow {
     box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
 }
@@ -34,6 +50,15 @@ body {
 
 }
 
+.ReactModal__Content--after-open {
+    margin: 100px;
+    @media screen and (max-width: $bs-xs) {
+        margin: 20px;
+    }
+    @media screen and (max-width: $bs-ph) {
+        margin: 10px;
+    }
+}
 
 /*************************************************
  * Specific rules
@@ -45,6 +70,11 @@ body {
     margin: 20px 0;
     background-color: $generic-color-dark;
     color: $background-color;
+    @media screen and (max-width: $bs-xs) {
+        padding: 30px 10px;
+        margin: 10px 0;
+    }
+
 }
 .project-select-box:hover {
     @extend .clickable:hover;

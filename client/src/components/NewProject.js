@@ -1,10 +1,11 @@
 import React from 'react';
+import {Container, Row} from './Bootstrap';
 
 class NewProject extends React.Component {
     render() {
         return (
-            <div className="container">
-                <div className="row">
+            <Container>
+                <Row>
                     <h2>New Project Form</h2>
                     <form method="post"
                           action="/api/new-project">
@@ -23,8 +24,8 @@ class NewProject extends React.Component {
                             Submit
                         </button>
                     </form>
-                </div>
-            </div>
+                </Row>
+            </Container>
         )
     }
 }
