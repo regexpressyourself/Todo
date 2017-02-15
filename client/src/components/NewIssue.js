@@ -31,7 +31,6 @@ class NewIssue extends React.Component {
         for (let i = 0; i < projectList.length; i++) {
             let projectName = projectList[i].name;
             let projectId   = projectList[i].id;
-            let gridNumber  = Math.floor(12 / projectList.length);
 
             projectSelectBoxes.push(this.createProjectSelectBox(i, 
                                                                 projectId,

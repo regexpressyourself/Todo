@@ -1,5 +1,4 @@
 import React from 'react';
-import {Container} from './Bootstrap';
 
 class EditProject extends React.Component {
     constructor(props) {
@@ -38,7 +37,6 @@ class EditProject extends React.Component {
                                name="project-name"
                                id="project-name" />
                     <br/>
-                    {this.state.stageNames}
                     <button type="submit"
                             className="btn btn-default">
                         Submit

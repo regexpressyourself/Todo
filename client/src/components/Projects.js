@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, Col4, Row} from './Bootstrap';
+import {Container, Row} from './Bootstrap';
 import ProjectSelectBox from './ProjectSelectBox';
 import axios from 'axios';
 
