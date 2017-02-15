@@ -13,6 +13,19 @@ var connection = mysql.createConnection({
 
 connection.connect();
 
+export function get_project_by_id(project_id, callback) {
+    let query_string = "SELECT * FROM projects WHERE id='" +
+        project_id + "' " + "LIMIT 1;";
+    connection.query(query_string, (error, results, fields) => {
+        if (error) console.log(error);
+        add_stages_to_projects(results, (project) => {
+            callback(project);
+        });
+
+    });
+
+}
+
 export function get_userid_by_email(user_email, callback) {
     let query_string = "SELECT id FROM users WHERE email='" +
                        user_email + "' " +
@@ -111,5 +124,6 @@ module.exports = {
     add_project_by_email:   add_project_by_email,
     get_projects_by_email:  get_projects_by_email,
     parse_project_list:     parse_project_list,
-    get_projects_by_userid: get_projects_by_userid
+    get_projects_by_userid: get_projects_by_userid,
+    get_project_by_id:      get_project_by_id
 };

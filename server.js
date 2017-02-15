@@ -6,6 +6,7 @@ const db          = require('./server_modules/db');
 let add_project_by_email   = db.add_project_by_email;
 let get_projects_by_email  = db.get_projects_by_email;
 let get_projects_by_userid = db.get_projects_by_userid;
+let get_project_by_id=      db.get_project_by_id;
 
 app.use(bodyParser.json());     // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
@@ -21,6 +22,14 @@ if (process.env.NODE_ENV === 'production') {
 
 const USEREMAIL = 'samuel.messina@gmail.com'; // TODO get user data from login
 //const USERID    = 1; // TODO get user id from login
+
+app.get('/api/project', (req, res) => {
+    if (req.query.projectId){
+        get_project_by_id(req.query.projectId, (project) => {
+            res.send(project[0]);
+        });
+    }
+});
 
 app.get('/api/projects', (req, res) => {
     if (req.query.userId && req.body) {
