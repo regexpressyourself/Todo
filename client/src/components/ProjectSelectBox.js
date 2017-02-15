@@ -1,6 +1,6 @@
 import React from 'react';
-import Modal from 'react-modal';
-import EditProject from './EditProject';
+import { Link } from 'react-router';
+
 
 class ProjectSelectBox extends React.Component {
     constructor(props) {
@@ -12,16 +12,6 @@ class ProjectSelectBox extends React.Component {
             stageList: [],
             isModalOpen: false
         }
-        this.handleOpenModal = this.handleOpenModal.bind(this);
-        this.handleCloseModal = this.handleCloseModal.bind(this);
-    }
-
-    handleOpenModal () {
-        this.setState({ showModal: true });
-    }
-
-    handleCloseModal () {
-        this.setState({ showModal: false });
     }
 
     componentDidMount() {
@@ -35,20 +25,11 @@ class ProjectSelectBox extends React.Component {
 
     render() {
         return (
-            <div>
-                <div onClick={() => this.handleOpenModal()}
-                     className="project-select-box">
+            <Link to={"/projects/views/kanban/" + this.state.id}>
+                <div className="project-select-box">
                     <h4>{this.state.name}</h4>
                 </div>
-
-                <Modal isOpen={this.state.showModal}
-                       contentLabel="{this.state.name} modal"
-                       onRequestClose={this.handleCloseModal}>
-                    <EditProject projectName={this.state.name}
-                                 projectId={this.state.id}
-                                 stageList={this.state.stageList}/>
-                </Modal>
-            </div>
+            </Link>
         )
     }
 }
