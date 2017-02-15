@@ -1,26 +1,46 @@
 import React from 'react';
+import {Container} from './Bootstrap';
 
-class NewProject extends React.Component {
+class EditProject extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            stageNames: []
+        }
+    }
+
+    componentDidMount() {
+        this.setState({
+            stageNames: this.getStageNames()
+        });
+    }
+
+    getStageNames() {
+        return this.props.stageList.map((stage) => {
+            return stage.name;
+        });
+
+    }
+
     render() {
         return (
             <div>
-                <h2>Edit Project Form</h2>
+                <h3>{this.props.projectName}</h3>
                 <form method="post"
-                      action="/api/new-project">
-                    <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input className="mdl-textfield__input"
-                               required
+                      action="/api/edit-project">
+                        <label htmlFor="project-name">
+                            Project Name
+                        </label>
+                        <input required
+                               className="form-control"
+                               placeholder="Project Name"
                                type="text"
                                name="project-name"
                                id="project-name" />
-                        <label className="mdl-textfield__label"
-                               htmlFor="project-name">
-                            Project Name
-                        </label>
-                    </div>
                     <br/>
-                    <button className='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'
-                            type="submit">
+                    {this.state.stageNames}
+                    <button type="submit"
+                            className="btn btn-default">
                         Submit
                     </button>
                 </form>
@@ -28,4 +48,4 @@ class NewProject extends React.Component {
         )
     }
 }
-export default NewProject;
+export default EditProject;

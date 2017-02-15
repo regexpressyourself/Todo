@@ -32,24 +32,19 @@ class NewIssue extends React.Component {
             let projectName = projectList[i].name;
             let projectId   = projectList[i].id;
             let gridNumber  = Math.floor(12 / projectList.length);
-            let gridClass   = "mdl-cell mdl-cell--" +
-                              gridNumber +
-                              "-col mdl-card mdl-shadow--2dp";
 
-            projectSelectBoxes.push(this.createProjectSelectBox(i,
-                                                                gridClass,
+            projectSelectBoxes.push(this.createProjectSelectBox(i, 
                                                                 projectId,
                                                                 projectName));
         }
         this.setState({projectSelectBoxes: projectSelectBoxes});
     }
 
-    createProjectSelectBox(i, gridClass, projectId, projectName) {
+    createProjectSelectBox(i, projectId, projectName) {
         return (
             <div key={i}
-                 className={gridClass}
                  onClick={() => this.selectProject(projectId)}>
-                <div className="mdl-card__title mdl-card--expand">
+                <div>
                     <h4>{projectName}</h4>
                 </div>
             </div>
@@ -72,26 +67,23 @@ class NewIssue extends React.Component {
             <h2>New Issue Form</h2>
                 <form method="post"
                       action="/api/new-issue">
-                    <div className="mdl-grid">
+                    <div>
                         {this.state.projectSelectBoxes}
                     </div>
                     <input name="issue-project-id"
                            type="hidden"
                            value={this.state.projectId}/>
                     <br/>
-                    <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input className="mdl-textfield__input"
-                               type="text"
+                    <div>
+                        <input type="text"
                                name="issue-name"
                                id="issue-name" />
-                        <label className="mdl-textfield__label"
-                               htmlFor="issue-name">
+                        <label htmlFor="issue-name">
                             Issue Name
                         </label>
                     </div>
                     <br/>
-                    <button className='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'
-                            type="submit">
+                    <button type="submit">
                         Submit
                     </button>
                 </form>
