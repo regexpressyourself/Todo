@@ -23,17 +23,6 @@ export function get_userid_by_email(user_email, callback) {
     });
 }
 
-export function add_project_by_email(project_name, user_email) {
-    get_userid_by_email(user_email, (user_id) => {
-        let query_string = "INSERT INTO projects (name, userId) " +
-                           "VALUES ('" + project_name  + "', " + user_id +
-                           ");";
-        connection.query(query_string, (error, results, fields) => {
-            if (error) console.log(error);
-        });
-    });
-}
-
 export function get_projects_by_email(user_email, callback){
     get_userid_by_email(user_email, (user_id) => {
         let query_string = "SELECT * FROM projects WHERE userId=" +
@@ -62,23 +51,6 @@ export function get_projects_by_userid(user_id, callback){
     });
 }
 
-export function add_stages_to_projects(project_list, callback) {
-    let promises = project_list.map((project) => {
-        return get_stages_by_projectid(project.id)
-            .then((stage_list) => {
-                project["stageList"] = stage_list;
-                return project;
-            });
-    });
-    Promise.all(promises)
-        .then(project_list => {
-            callback(project_list);
-        })
-        .catch(e => {
-            console.error(e);
-        });
-}
-
 export function get_stages_by_projectid(project_id) {
     return new Promise((resolve, reject) => {
         let query_string = "SELECT * FROM stages WHERE projectId=" +
@@ -92,6 +64,39 @@ export function get_stages_by_projectid(project_id) {
 
 }
 
+export function add_project_by_email(project_name, user_email) {
+    get_userid_by_email(user_email, (user_id) => {
+        let query_string = "INSERT INTO projects (name, userId) " +
+            "VALUES ('" + project_name  + "', " + user_id +
+            ");";
+        connection.query(query_string, (error, results, fields) => {
+            if (error) console.log(error);
+        });
+    });
+}
+
+export function add_stages_to_projects(project_list, callback) {
+    let promises = project_list.map((project) => {
+        return get_stages_by_projectid(project.id)
+            .then((stage_list) => {
+                project["stageList"] = stage_list;
+                return project;
+            });
+    });
+    catch_promises(promises, callback);
+}
+
+export function catch_promises(promises, callback) {
+    Promise.all(promises)
+        .then(result => {
+            callback(result);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+}
+
 export function parse_project_list(project_list) {
     return project_list.map((project_item) => {
         return ({
@@ -101,11 +106,10 @@ export function parse_project_list(project_list) {
     });
 }
 
-
 module.exports = {
-    get_userid_by_email:   get_userid_by_email,
-    add_project_by_email:  add_project_by_email,
-    get_projects_by_email: get_projects_by_email,
-    parse_project_list:    parse_project_list,
-    get_projects_by_userid:    get_projects_by_userid
+    get_userid_by_email:    get_userid_by_email,
+    add_project_by_email:   add_project_by_email,
+    get_projects_by_email:  get_projects_by_email,
+    parse_project_list:     parse_project_list,
+    get_projects_by_userid: get_projects_by_userid
 };
