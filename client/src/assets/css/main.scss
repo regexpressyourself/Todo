@@ -19,9 +19,15 @@ $bs-md: 1200px;
  * Element-level rules
  **************************************************/
 
-body {
-    background: $background-color;
+html, #root, #root>div, body {
+    // getting react to not render at weird sizes
     width: 100%;
+    height: 100%;
+}
+
+body {
+    background-size: cover;
+    background: $background-color;
 }
 
 /*************************************************
@@ -78,4 +84,115 @@ body {
 }
 .project-select-box:hover {
     @extend .clickable:hover;
+}
+
+/* Kanban Goodies - BEWARE YE WHO ENTER HERE*/
+.app-wrapper {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    height: 100%;
+}
+.app-inner {
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    overflow-y: auto;
+    position: relative;
+}
+.kanban-board-wrapper {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+.kanban-board-inner {
+    height: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    margin-right: 0;
+    -webkit-transition: margin .1s ease-in;
+    transition: margin .1s ease-in;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+}
+.kanban-board-canvas {
+    position: relative;
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    white-space: nowrap;
+}
+.kanban-board {
+    white-space: nowrap;
+    -ms-user-select: none;
+    user-select: none;
+    margin-bottom: 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+.kanban-list-wrapper {
+    width: 270px;
+    margin: 0 5px;
+    height: 100%;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: top;
+}
+.kanban-list {
+    background: white;
+    border-radius: 3px;
+    box-sizing: border-box;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    max-height: 100%;
+    position: relative;
+}
+.kanban-list-inner {
+    overflow-y: auto;
+}
+
+.kanban-board-header{
+    -webkit-box-flex: 0;
+    -webkit-flex: none;
+    -ms-flex: none;
+    flex: none;
+    height: auto;
+    overflow: hidden;
+    padding: 8px 4px 8px 8px;
+    position: relative;
+    text-align: center;
+}
+
+.kanban-header {
+    font-size: 24px;
+    font-weight: 600;
+    background-color: $generic-color-light;
+    text-align: center;
 }

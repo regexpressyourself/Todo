@@ -1,6 +1,10 @@
 import React from 'react';
 import {Container} from './Bootstrap';
+import KanbanWrapper from './KanbanWrapper';
+import KanbanListWrapper from './KanbanListWrapper';
+
 import axios from 'axios';
+
 
 class Kanban extends React.Component {
     constructor(props) {
@@ -10,7 +14,7 @@ class Kanban extends React.Component {
             projectName: '',
             stageList: []
         };
-        this.getProjects        = this.getProjects.bind(this);
+        this.getProjects = this.getProjects.bind(this);
     }
 
     componentDidMount() {
@@ -26,6 +30,7 @@ class Kanban extends React.Component {
             }
         }).then((response) => {
             response = response.data;
+            console.log(response);
             this.setState({
                 projectName:     response.name,
                 stageList:       response.stageList,
@@ -37,23 +42,21 @@ class Kanban extends React.Component {
     }
 
     makeStageColumns(stageList) {
-        return (
-            stageList.map(function(stage) {
-                return (
-                    <div key={stage.id}>
-                        <h2>{ stage.name }</h2>
-                    </div>
-                )
-            })
-        )
+        let orderedStageList = [];
+        for (let stage of stageList) {
+            orderedStageList[stage.order] = (
+                <KanbanListWrapper key={stage.id} title={stage.name}>
+                </KanbanListWrapper>
+            )
+        }
+        return orderedStageList;
     }
 
     render() {
         return (
-            <Container>
-                <h1>{this.state.projectName}</h1>
+            <KanbanWrapper title={this.state.projectName}>
                 {this.state.stageComponents}
-            </Container>
+            </KanbanWrapper>
         )
     }
 }
