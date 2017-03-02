@@ -24,27 +24,93 @@ priority TINYINT,
 stageId INT NOT NULL,
 CONSTRAINT FOREIGN KEY (stageId) REFERENCES stages (id));
 
+* Trello css
+** Surface (app-wrapper)
+*** Content (app-inner)
+**** Board Wrapper (kanban-board-wrapper)
+     position: absolute;
+     left: 0;
+     right: 0;
+     top: 0;
+     bottom: 0;
+***** Board Main Content (kanban-board-inner)
+      height: 100%;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      margin-right: 0;
+      -webkit-transition: margin .1s ease-in;
+      transition: margin .1s ease-in;
+****** Board Canvas (kanban-board-canvas)
+       position: relative;
+       -webkit-box-flex: 1;
+       -webkit-flex-grow: 1;
+       -ms-flex-positive: 1;
+       flex-grow: 1;
+******* board (kanban-board)
+        -ms-user-select: none;
+        user-select: none;
+        white-space: nowrap;
+        margin-bottom: 10px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-bottom: 10px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+******** list wrapper (kanban-list-wrapper)
+         width: 270px;
+         margin: 0 5px;
+         height: 100%;
+         -moz-box-sizing: border-box;
+         box-sizing: border-box;
+         display: inline-block;
+         vertical-align: top;
+         white-space: nowrap;
+********* list
+          background: #E2E4E6;
+          border-radius: 3px;
+          box-sizing: border-box;
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-flex-direction: column;
+          -ms-flex-direction: column;
+          flex-direction: column;
+          max-height: 100%;
+          position: relative;
+          white-space: normal;
+
+
+
 * Helpful Links
 
   http://bulletjournal.com/
 
 * Restarino
 
-| URI                            | Method | Collection       | Operation | Function          |
-|--------------------------------+--------+------------------+-----------+-------------------|
-| /user/new                      | POST   | users            | create    | createUser        |
-| /user/{userId}                 | GET    | users            | retrieve  | getUser           |
-| /user/{userId}/profile         | GET    | users            | retrieve  | getUserProfile    |
-| /user/{userId}/profile         | POST   | users            | update    | updateUserProfile |
-| /{userId}/projects             | GET    | projects         | retrieve  | getProjects       |
-| /{userId}/projects             | POST   | projects, stages | create    | addProject        |
-| /{userId}/projects/{projectId} | POST   | projects, stages | update    | editProject       |
-| /{userId}/projects/{projectId} | DELETE | projects, stages | delete    | deleteProject     |
-| /{userId}/project              | GET    | projects, stages | retrieve  | getProject        |
-| /{userId}/issues               | GET    | issues           | retrieve  | getIssues         |
-| /{userId}/issues/add           | GET    | issues           | create    | addIssue          |
-| /{userId}/issues/{issueId}     | POST   | issues           | update    | editIssue         |
-| /{userId}/issues/{issueId}     | DELETE | issues           | delete    | deleteIssue       |
+  | URI                            | Method | Collection       | Operation | Function          |
+  |--------------------------------+--------+------------------+-----------+-------------------|
+  | /user/new                      | POST   | users            | create    | createUser        |
+  | /user/{userId}                 | GET    | users            | retrieve  | getUser           |
+  | /user/{userId}/profile         | GET    | users            | retrieve  | getUserProfile    |
+  | /user/{userId}/profile         | POST   | users            | update    | updateUserProfile |
+  | /{userId}/projects             | GET    | projects         | retrieve  | getProjects       |
+  | /{userId}/projects             | POST   | projects, stages | create    | addProject        |
+  | /{userId}/projects/{projectId} | POST   | projects, stages | update    | editProject       |
+  | /{userId}/projects/{projectId} | DELETE | projects, stages | delete    | deleteProject     |
+  | /{userId}/project              | GET    | projects, stages | retrieve  | getProject        |
+  | /{userId}/issues               | GET    | issues           | retrieve  | getIssues         |
+  | /{userId}/issues/add           | GET    | issues           | create    | addIssue          |
+  | /{userId}/issues/{issueId}     | POST   | issues           | update    | editIssue         |
+  | /{userId}/issues/{issueId}     | DELETE | issues           | delete    | deleteIssue       |
 
 
 * Integrations
