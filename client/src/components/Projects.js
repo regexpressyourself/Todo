@@ -1,6 +1,7 @@
 import React from 'react';
 import {Container, Row} from './Bootstrap';
 import ProjectSelectBox from './ProjectSelectBox';
+import NewProjectSelectBox from './NewProjectSelectBox';
 import axios from 'axios';
 
 class Projects extends React.Component {
@@ -34,10 +35,6 @@ class Projects extends React.Component {
         let projectSelectBoxes = [];
         let projectList        = response.data;
 
-        projectList.unshift({
-            name:"New",
-            id: -1
-        });
 
         for (let i = 0; i < projectList.length; i++) {
             let projectName = projectList[i].name;
@@ -48,6 +45,7 @@ class Projects extends React.Component {
                                                                 projectName,
                                                                 stageList));
         }
+        projectSelectBoxes.unshift(<NewProjectSelectBox key="-1"/>);
         this.setState({projectSelectBoxes: projectSelectBoxes});
     }
 

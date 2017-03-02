@@ -8,7 +8,6 @@ class ProjectSelectBox extends React.Component {
         this.state = {
             id: '',
             name: '',
-            newProject: false,
             stageList: [],
             isModalOpen: false
         }
@@ -18,8 +17,7 @@ class ProjectSelectBox extends React.Component {
         this.setState({
             id: this.props.projectId,
             name: this.props.projectName,
-            stageList: this.props.stageList,
-            isNewProject: this.props.newProject || false
+            stageList: this.props.stageList
         });
     }
 
