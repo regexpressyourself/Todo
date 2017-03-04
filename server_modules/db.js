@@ -88,6 +88,16 @@ export function add_project_by_email(project_name, user_email) {
     });
 }
 
+export function add_new_stage_to_project(stage_name, stage_order, parent_project) {
+    let query_string = "INSERT INTO stages (`name`, `order`, `projectId`) " +
+        "VALUES ('" + stage_name + "', " + stage_order + ", "
+        + parent_project + ");";
+    console.log(query_string);
+    connection.query(query_string, (error, results, fields) => {
+        if (error) console.log(error);
+    });
+}
+
 export function add_stages_to_projects(project_list, callback) {
     let promises = project_list.map((project) => {
         return get_stages_by_projectid(project.id)
@@ -125,5 +135,6 @@ module.exports = {
     get_projects_by_email:  get_projects_by_email,
     parse_project_list:     parse_project_list,
     get_projects_by_userid: get_projects_by_userid,
-    get_project_by_id:      get_project_by_id
+    get_project_by_id:      get_project_by_id,
+    add_new_stage_to_project: add_new_stage_to_project
 };

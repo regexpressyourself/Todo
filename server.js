@@ -7,6 +7,7 @@ let add_project_by_email   = db.add_project_by_email;
 let get_projects_by_email  = db.get_projects_by_email;
 let get_projects_by_userid = db.get_projects_by_userid;
 let get_project_by_id=      db.get_project_by_id;
+let add_new_stage_to_project = db.add_new_stage_to_project;
 
 app.use(bodyParser.json());     // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
@@ -53,6 +54,16 @@ app.post('/api/new-project', (req, res) => {
 });
 
 app.post('/api/new-stage', (req, res) => {
+    if (req.body &&
+        req.body['stage-name'] &&
+        req.body['stage-order'] &&
+        req.body['parent-project']) {
+
+        add_new_stage_to_project(req.body['stage-name'],
+                                 req.body['stage-order'],
+                                 req.body['parent-project']);
+        res.redirect('/projects/views/kanban/' + req.body['parent-project']);
+    }
 });
 
 app.post('/api/new-issue', (req, res) => {
