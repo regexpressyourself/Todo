@@ -1,7 +1,7 @@
 import React from 'react';
-import {Container} from './Bootstrap';
 import KanbanWrapper from './KanbanWrapper';
-import KanbanListWrapper from './KanbanListWrapper';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 import axios from 'axios';
 
@@ -30,34 +30,35 @@ class Kanban extends React.Component {
             }
         }).then((response) => {
             response = response.data;
-            console.log(response);
             this.setState({
                 projectName:     response.name,
-                stageList:       response.stageList,
-                stageComponents: this.makeStageColumns(response.stageList)
+                kanbanWrapper: (
+                    <KanbanWrapper stageList={response.stageList}
+                                   projectId={this.props.params.projectId} />
+                )
             })
         }).catch((error) => {
             console.log(error);
         });
     }
 
-    makeStageColumns(stageList) {
-        let orderedStageList = [];
-        for (let stage of stageList) {
-            orderedStageList[stage.order] = (
-                <KanbanListWrapper key={stage.id} title={stage.name}>
-                </KanbanListWrapper>
-            )
-        }
-        return orderedStageList;
-    }
-
     render() {
         return (
-            <KanbanWrapper title={this.state.projectName}>
-                {this.state.stageComponents}
-            </KanbanWrapper>
+            <div className="app-wrapper">
+                <div className="app-inner">
+                    <div className="kanban-board-wrapper">
+                        <div className="kanban-board-inner">
+                            <div className="kanban-board-header">
+                                <h1>
+                                    {this.state.projectName}
+                                </h1>
+                            </div>
+                            {this.state.kanbanWrapper}
+                        </div>
+                    </div>
+                </div>
+            </div>
         )
     }
 }
-export default Kanban;
+export default DragDropContext(HTML5Backend)(Kanban);
