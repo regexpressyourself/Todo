@@ -1,18 +1,37 @@
-const express     = require('express');
-const app         = express();
-const bodyParser  = require('body-parser');
-const db          = require('./server_modules/db');
+const express        = require('express');
+const session        = require('express-session');
+const app            = express();
+const bodyParser     = require('body-parser');
+const cookieParser   = require('cookie-parser');
+const db             = require('./config/db');
+const passport       = require('passport');
+const flash          = require('connect-flash');
+const session_secret = process.env.SESSION_SECRET;
 
-let add_project_by_email   = db.add_project_by_email;
-let get_projects_by_email  = db.get_projects_by_email;
-let get_projects_by_userid = db.get_projects_by_userid;
-let get_project_by_id=      db.get_project_by_id;
-let add_new_stage_to_project = db.add_new_stage_to_project;
+const {add_project_by_id,
+       get_projects_by_email,
+       get_projects_by_userid,
+       get_project_by_id,
+       add_new_stage_to_project} = db;
+
+require('./config/passport')(passport); // pass passport for configuration
 
 app.use(bodyParser.json());     // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
     extended: true
 }));
+
+app.use(cookieParser()); // read cookies (needed for auth)
+
+app.use(session({
+    secret: session_secret,
+    resave: true,
+    saveUninitialized: true
+} )); // session secret
+
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
 
 app.set('port', (process.env.PORT || 3001));
 
@@ -24,7 +43,37 @@ if (process.env.NODE_ENV === 'production') {
 const USEREMAIL = 'samuel.messina@gmail.com'; // TODO get user data from login
 //const USERID    = 1; // TODO get user id from login
 
+app.post('/create-account',
+         // Create account form submits here
+         passport.authenticate('local-signup',
+                               { successRedirect: '/projects',
+                                 failureRedirect: '/',
+                                 failureFlash: true}));
+
+app.post('/login', 
+         passport.authenticate('local-login',
+                               { successRedirect: '/projects',
+                                 failureRedirect: '/',
+                                 failureFlash: true}));
+
+
+app.get('/api/isLoggedIn', (req, res) => {
+    // Check if user is logged in
+    let isLoggedIn = false;
+    if (req.isAuthenticated()) {
+        // Send true if user is logged in
+        isLoggedIn = true;
+        res.send(isLoggedIn);
+    }
+    else {
+        // Send false if user is not logged in
+        res.send(isLoggedIn);
+    }
+    // if they aren't redirect them to the home page
+});
+
 app.get('/api/project', (req, res) => {
+    // Get a project by id
     if (req.query.projectId){
         get_project_by_id(req.query.projectId, (project) => {
             res.send(project[0]);
@@ -33,8 +82,9 @@ app.get('/api/project', (req, res) => {
 });
 
 app.get('/api/projects', (req, res) => {
-    if (req.query.userId && req.body) {
-        get_projects_by_userid(req.query.userId, (project_list) => {
+    // Get projects by userId
+    if (req.user.id && req.body) {
+        get_projects_by_userid(req.user.id, (project_list) => {
             res.send(project_list);
         });
     }
@@ -47,9 +97,9 @@ app.get('/api/issues', (req, res) => {
 });
 
 app.post('/api/new-project', (req, res) => {
-    if (req.body && req.body['project-name']) {
-        add_project_by_email(req.body['project-name'], USEREMAIL);
-        res.redirect('/');
+    if (req.body && req.body['project-name'] && req.user.id) {
+        add_project_by_id(req.body['project-name'], req.user.id);
+        res.redirect('/projects');
     }
 });
 
