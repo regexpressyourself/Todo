@@ -18,11 +18,7 @@ class Projects extends React.Component {
     }
 
     getProjects() {
-        axios.get('/api/projects', {
-            params: {
-                userId: 1
-            }
-        })
+        axios.get('/api/projects')
              .then((response) => {
                  this.createProjectBoxes(response);
              })
