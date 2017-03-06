@@ -1,8 +1,8 @@
 require('dotenv').config();
-
 const mysql = require('mysql');
 let db_user = process.env.DB_USER;
 let db_pw   = process.env.DB_PASSWORD;
+
 
 var connection = mysql.createConnection({
     host     : 'localhost',
@@ -77,14 +77,12 @@ export function get_stages_by_projectid(project_id) {
 
 }
 
-export function add_project_by_email(project_name, user_email) {
-    get_userid_by_email(user_email, (user_id) => {
-        let query_string = "INSERT INTO projects (name, userId) " +
-            "VALUES ('" + project_name  + "', " + user_id +
-            ");";
-        connection.query(query_string, (error, results, fields) => {
-            if (error) console.log(error);
-        });
+export function add_project_by_id(project_name, user_id) {
+    let query_string = "INSERT INTO projects (name, userId) " +
+        "VALUES ('" + project_name  + "', " + user_id +
+        ");";
+    connection.query(query_string, (error, results, fields) => {
+        if (error) console.log(error);
     });
 }
 
@@ -92,7 +90,6 @@ export function add_new_stage_to_project(stage_name, stage_order, parent_project
     let query_string = "INSERT INTO stages (`name`, `order`, `projectId`) " +
         "VALUES ('" + stage_name + "', " + stage_order + ", "
         + parent_project + ");";
-    console.log(query_string);
     connection.query(query_string, (error, results, fields) => {
         if (error) console.log(error);
     });
@@ -131,7 +128,7 @@ export function parse_project_list(project_list) {
 
 module.exports = {
     get_userid_by_email:    get_userid_by_email,
-    add_project_by_email:   add_project_by_email,
+    add_project_by_id:   add_project_by_id,
     get_projects_by_email:  get_projects_by_email,
     parse_project_list:     parse_project_list,
     get_projects_by_userid: get_projects_by_userid,
