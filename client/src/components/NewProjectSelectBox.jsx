@@ -144,7 +144,6 @@ class ProjectSelectBox extends React.Component {
                     </div>
                     <div className="col-sm-6">
                         <input className="form-control"
-                               required
                                type="text"
                                name="project-name"
                                id="project-name"
