@@ -1,6 +1,8 @@
 import React from 'react';
 import KanbanListWrapper from './KanbanListWrapper';
 import KanbanAddNewStage from './KanbanAddNewStage';
+import axios from 'axios';
+
 class KanbanWrapper extends React.Component{
     constructor(props) {
         super(props);
@@ -40,8 +42,21 @@ class KanbanWrapper extends React.Component{
 
             this.setState({
                 stageList: stageList
+            }, () => {
+                console.log(stageList);
+                let stageList = this.state.stageList.map((stage) => {
+                    return {
+                        stageId: stage.props.stageId,
+                        stageOrder: stage.props.order
+                    };
+                });
+                axios.post('/api/update-stage-order', {
+                    stageList: stageList})
+                     .then((response) => {
+                     }).catch((error) => {
+                         console.log(error);
+                     });
             });
-
         }
     }
 
