@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
 import {Container} from './Bootstrap';
 import Modal from 'react-modal';
+import axios from 'axios';
 
 
 class ProjectSelectBox extends React.Component {
@@ -11,7 +12,9 @@ class ProjectSelectBox extends React.Component {
         this.state = {
             modalIsOpen: false,
             stageList: [],
-            currentStage: ""
+            stageListAsText: [],
+            currentStage: "",
+            projectName: ""
         };
 
         this.openModal         = this.openModal.bind(this);
@@ -19,23 +22,10 @@ class ProjectSelectBox extends React.Component {
         this.closeModal        = this.closeModal.bind(this);
         this.addStageToList    = this.addStageToList.bind(this);
         this.handleAddStage = this.handleAddStage.bind(this);
-        this.handleStageKeypress = this.handleStageKeypress.bind(this);
+        this.handleProjectName = this.handleProjectName.bind(this);
+        this.handleStageName = this.handleStageName.bind(this);
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
-
-    /*
-       componentDidMount() {
-       console.log(this.refs.stageInput);
-       const stageInput = ReactDOM.findDOMNode(this.refs.stageInput);
-       const stageEvent = stageInput.addEventListener || stageInput.attachEvent;
-       stageEvent("keypress", this.handleStageKeypress, false);
-       }
-
-       componentWillUnmount() {
-       const stageInput = ReactDOM.findDOMNode(this.refs.stageInput);
-       const removeEvent = stageInput.removeEventListener || stageInput.detachEvent;
-       removeEvent("keypress", this.handleStageKeypress);
-       }
-     */
 
     openModal() {
         this.setState({modalIsOpen: true});
@@ -48,6 +38,7 @@ class ProjectSelectBox extends React.Component {
         this.setState({
             modalIsOpen: false,
             stageList: [],
+            stageListAsText: [],
             currentStage: ""
 
         });
@@ -58,9 +49,12 @@ class ProjectSelectBox extends React.Component {
 
     addStageToList() {
         let stageList = this.state.stageList;
+        let stageListAsText = this.state.stageListAsText;
+
+        stageListAsText.push(this.state.currentStage);
 
         let newStage = (
-            <div className="form-stage-list-item">
+            <div key={stageList.length} className="form-stage-list-item">
                 {this.state.currentStage}
             </div>
         );
@@ -68,28 +62,46 @@ class ProjectSelectBox extends React.Component {
 
         this.setState({
             stageList: stageList,
+            stageListAsText: stageListAsText,
             currentStage: ""
         });
     }
 
     handleAddStage(e) {
-        e.preventDefault();
-        if (e.key === "Enter"){
-            console.log(e.target.value);
-            e.target.value = "";
+        if ( e.key === "Enter") {
+            e.preventDefault();
             this.addStageToList();
-        }
-        else {
-            e.target.value += e.key;
-            this.setState({
-                currentStage: e.target.value
-            })
         }
     }
 
-    handleStageKeypress(e){
-        if (e.keyCode === 13) {
-            console.log(e);
+    handleStageName(e) {
+        this.setState({
+            currentStage: e.target.value
+        })
+    }
+
+    handleProjectName(e) {
+            this.setState({
+                projectName: e.target.value
+            })
+    }
+
+    handleFormSubmit() {
+        console.log(this.state);
+        if (this.state.projectName.length === 0) {
+
+        }
+        else {
+            let projectName = this.state.projectName;
+            let stageListAsText = this.state.stageListAsText;
+            axios.post('/api/new-project', {
+                projectName: projectName,
+                stageList: stageListAsText})
+                 .then((response) => {
+                     console.log(response);
+                 }).catch((error) => {
+                     console.log(error);
+                 });
         }
     }
 
@@ -107,9 +119,7 @@ class ProjectSelectBox extends React.Component {
 
             <h2>New Project</h2>
 
-            <form method="post"
-                  action="/api/new-project"
-                  className="form-horizontal">
+            <form className="form-horizontal">
                 <div className="form-group">
                     <div className="col-sm-4">
                         <label htmlFor="project-name">
@@ -120,6 +130,8 @@ class ProjectSelectBox extends React.Component {
                         <input className="form-control"
                                type="text"
                                name="project-name"
+                               value={this.state.projectName}
+                               onChange={this.handleProjectName}
                                id="project-name" />
                     </div>
                 </div>
@@ -127,17 +139,12 @@ class ProjectSelectBox extends React.Component {
                 <div className="form-group">
                     <div className="col-sm-4">
                         <div className="running-stage-list">
-
                             {this.state.stageList}
-
                         </div>
-
                     </div>
-
                 </div>
                 <div className="form-group">
                     <div className="col-sm-4">
-
                         <label htmlFor="stage-name">
                             Add Stages
                         </label>
@@ -149,6 +156,7 @@ class ProjectSelectBox extends React.Component {
                                id="project-name"
                                value={this.state.currentStage}
                                ref={(input) => {this.stageInput = input;}}
+                               onChange={this.handleStageName}
                                onKeyPress={this.handleAddStage} />
                     </div>
                     <div className="col-sm-2">
@@ -159,7 +167,7 @@ class ProjectSelectBox extends React.Component {
                     </div>
                 </div>
                 <br/>
-                <button className="btn btn-default" type="submit">
+                <button className="btn btn-default" onClick={this.handleFormSubmit} >
                     Submit
                 </button>
             </form>
