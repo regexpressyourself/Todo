@@ -77,12 +77,15 @@ export function get_stages_by_projectid(project_id) {
 
 }
 
-export function add_project_by_id(project_name, user_id) {
+export function add_project_by_id(project_name, stage_list, user_id) {
     let query_string = "INSERT INTO projects (name, userId) " +
         "VALUES ('" + project_name  + "', " + user_id +
         ");";
     connection.query(query_string, (error, results, fields) => {
         if (error) console.log(error);
+        for (let i = 0; i < stage_list.length; i++) {
+            add_new_stage_to_project(stage_list[i], i, results.insertId);
+        }
     });
 }
 

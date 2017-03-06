@@ -83,7 +83,7 @@ app.get('/api/project', (req, res) => {
 
 app.get('/api/projects', (req, res) => {
     // Get projects by userId
-    if (req.user.id && req.body) {
+    if (req.user && req.user.id && req.body) {
         get_projects_by_userid(req.user.id, (project_list) => {
             res.send(project_list);
         });
@@ -97,9 +97,15 @@ app.get('/api/issues', (req, res) => {
 });
 
 app.post('/api/new-project', (req, res) => {
-    if (req.body && req.body['project-name'] && req.user.id) {
-        add_project_by_id(req.body['project-name'], req.user.id);
+    if (req.body &&
+        req.body['projectName'] &&
+        req.user &&
+        req.user.id) {
+        add_project_by_id(req.body.projectName, req.body.stageList, req.user.id);
         res.redirect('/projects');
+    }
+    else {
+        res.redirect('/');
     }
 });
 
