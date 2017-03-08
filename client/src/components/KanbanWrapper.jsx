@@ -45,11 +45,16 @@ class KanbanWrapper extends React.Component{
             }, () => {
                 console.log(stageList);
                 let stageList = this.state.stageList.map((stage) => {
+                    // create a list of new ids and new order
                     return {
                         stageId: stage.props.stageId,
                         stageOrder: stage.props.order
                     };
                 });
+
+                // remove the "add new stage" stage
+                stageList.splice(stageList.length - 1, 1);
+
                 axios.post('/api/update-stage-order', {
                     stageList: stageList})
                      .then((response) => {
