@@ -4,6 +4,7 @@ module.exports = function(app, passport) {
            get_projects_by_email,
            get_projects_by_userid,
            get_project_by_id,
+           update_stage_order,
            add_new_stage_to_project} = db;
 
 
@@ -14,7 +15,7 @@ module.exports = function(app, passport) {
                                      failureRedirect: '/',
                                      failureFlash: true}));
 
-    app.post('/login', 
+    app.post('/login',
              passport.authenticate('local-login',
                                    { successRedirect: '/projects',
                                      failureRedirect: '/',
@@ -92,10 +93,12 @@ module.exports = function(app, passport) {
     });
 
     app.post('/api/update-stage-order', (req, res) => {
-        // TODO make this work
+        if (req.body) {
+            update_stage_order(req.body);
+        }
     });
 
     app.post('/api/edit-project', (req, res) => {
     });
 
-}
+};

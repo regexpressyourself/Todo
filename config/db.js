@@ -13,6 +13,19 @@ var connection = mysql.createConnection({
 
 connection.connect();
 
+export function update_stage_order(stage_list, callback) {
+    let query_string = "";
+    for (let i = 0; i < stage_list.length; i++) {
+        query_string = query_string +
+            "UPDATE stages SET order=" + stage_list[i].stageOrder +
+            "WHERE id=" + stage_list[i].stageId + "; ";
+    }
+    connection.query(query_string, (error, results, fields) => {
+        if (error) console.log(error);
+        callback();
+    });
+}
+
 export function get_project_by_id(project_id, callback) {
     let query_string = "SELECT * FROM projects WHERE id='" +
         project_id + "' " + "LIMIT 1;";
@@ -136,5 +149,6 @@ module.exports = {
     parse_project_list:     parse_project_list,
     get_projects_by_userid: get_projects_by_userid,
     get_project_by_id:      get_project_by_id,
+    update_stage_order:      update_stage_order,
     add_new_stage_to_project: add_new_stage_to_project
 };
