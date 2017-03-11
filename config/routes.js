@@ -93,8 +93,8 @@ module.exports = function(app, passport) {
     });
 
     app.post('/api/update-stage-order', (req, res) => {
-        if (req.body) {
-            update_stage_order(req.body);
+        if (req.body && req.body.stageList) {
+            update_stage_order(req.body.stageList);
         }
     });
 

@@ -14,16 +14,33 @@ var connection = mysql.createConnection({
 connection.connect();
 
 export function update_stage_order(stage_list, callback) {
-    let query_string = "";
+    /**
+     * UPDATE stages SET `order` =
+     *   CASE
+     *      WHEN id=<id>  THEN <order>
+     *   END
+     *   WHERE id IN (<id>);
+     **/
+
+    let case_string = "UPDATE stages SET `order` = CASE ";
+    let where_string = "WHERE id in (";
     for (let i = 0; i < stage_list.length; i++) {
-        query_string = query_string +
-            "UPDATE stages SET order=" + stage_list[i].stageOrder +
-            "WHERE id=" + stage_list[i].stageId + "; ";
+        case_string = case_string +
+            " WHEN id="+ stage_list[i].stageId +
+            " THEN " + stage_list[i].stageOrder;
+        if (i < stage_list.length - 1)
+            where_string += stage_list[i].stageId + ", ";
+        else
+            where_string += stage_list[i].stageId + ");";
     }
-    connection.query(query_string, (error, results, fields) => {
-        if (error) console.log(error);
-        callback();
-    });
+    case_string += " ELSE `order` END ";
+    let query_string = case_string + where_string;
+    if (query_string.length > 0)
+        connection.query(query_string, (error, results, fields) => {
+            if (error) console.log(error);
+            if (callback) callback();
+        });
+
 }
 
 export function get_project_by_id(project_id, callback) {
