@@ -1,3 +1,7 @@
+http://docs.sequelizejs.com/en/v3/
+
+
+
 CREATE TABLE users    (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
 name VARCHAR(50), 
 imagePath VARCHAR(50), 
