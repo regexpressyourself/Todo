@@ -27,7 +27,7 @@ class KanbanAddNewStage extends React.Component {
                 <Modal isOpen={this.state.modalIsOpen}
                        onAfterOpen={this.afterOpenModal}
                        onRequestClose={this.closeModal}
-                       contentLabel="Example Modal" >
+                       contentLabel="Add Stage" >
 
                     <h2>Add Stage</h2>
 
