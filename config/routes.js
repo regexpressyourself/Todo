@@ -1,8 +1,12 @@
+// Backend Routes and API calls
+
 module.exports = function(app, passport) {
     const db             = require('./db');
     const {add_project_by_id,
            get_projects_by_email,
            get_projects_by_userid,
+           get_issues_by_stage_id,
+           update_stage_name,
            get_project_by_id,
            update_stage_order,
            add_new_stage_to_project} = db;
@@ -16,6 +20,7 @@ module.exports = function(app, passport) {
                                      failureFlash: true}));
 
     app.post('/login',
+             // Login submits here
              passport.authenticate('local-login',
                                    { successRedirect: '/projects',
                                      failureRedirect: '/',
@@ -59,6 +64,16 @@ module.exports = function(app, passport) {
     });
 
     app.get('/api/issues', (req, res) => {
+        console.log(req.body);
+        if (req.query &&
+            req.query.stageId &&
+            req.user &&
+            req.user.id) {
+            get_issues_by_stage_id(req.query.stageId, (results) => {
+                res.send(results);
+            });
+        }
+
     });
 
     app.post('/api/new-project', (req, res) => {
@@ -99,6 +114,20 @@ module.exports = function(app, passport) {
     });
 
     app.post('/api/edit-project', (req, res) => {
+    });
+
+    app.post('/api/edit-stage', (req, res) => {
+        if (req.body &&
+            req.user &&
+            req.user.id &&
+            req.body['stage-name'] &&
+            req.body['stage-id']) {
+            update_stage_name(req.body['stage-name'], req.body['stage-id']);
+            res.redirect(req.get('referer')); // send back from whence ye came
+        }
+        else {
+            console.log("Error editing stage");
+        }
     });
 
 };

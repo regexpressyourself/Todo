@@ -20,7 +20,7 @@ class KanbanWrapper extends React.Component{
     }
 
     moveStage(dragIndex, hoverIndex) {
-        let  stageList  = this.state.stageList;
+        let stageList  = this.state.stageList;
         let dragStage = stageList[dragIndex];
         let hoverStage = stageList[hoverIndex];
         if (dragStage && hoverStage) {
@@ -43,7 +43,6 @@ class KanbanWrapper extends React.Component{
             this.setState({
                 stageList: stageList
             }, () => {
-                console.log(stageList);
                 let stageList = this.state.stageList.map((stage) => {
                     // create a list of new ids and new order
                     return {

@@ -159,6 +159,21 @@ export function parse_project_list(project_list) {
     });
 }
 
+export function update_stage_name(stage_name, stage_id) {
+    let query_string = "UPDATE stages SET name='"+stage_name+"' WHERE id="+stage_id;
+    connection.query(query_string, (error, results, fields) => {
+        if (error) console.log(error);
+    });
+}
+
+export function get_issues_by_stage_id(stage_id, callback) {
+    let query_string = "SELECT * FROM issues WHERE stageId="+stage_id+";";
+    connection.query(query_string, (error, results, fields) => {
+        if (error) console.log(error);
+        if (callback) callback(results);
+    });
+}
+
 module.exports = {
     get_userid_by_email:    get_userid_by_email,
     add_project_by_id:   add_project_by_id,
@@ -167,5 +182,7 @@ module.exports = {
     get_projects_by_userid: get_projects_by_userid,
     get_project_by_id:      get_project_by_id,
     update_stage_order:      update_stage_order,
+    update_stage_name:        update_stage_name,
+    get_issues_by_stage_id:   get_issues_by_stage_id,
     add_new_stage_to_project: add_new_stage_to_project
 };

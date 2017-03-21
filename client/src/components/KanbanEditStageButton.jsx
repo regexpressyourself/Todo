@@ -1,38 +1,46 @@
 import React from 'react';
 import Modal from 'react-modal';
 
-class KanbanAddNewStage extends React.Component {
+class KanbanEditStageButton extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            modalIsOpen: false,
-            stageList: [],
-            currentStage: ""
+            modalIsOpen: false
         };
 
         this.openModal         = this.openModal.bind(this);
         this.closeModal        = this.closeModal.bind(this);
     }
+
+    componentDidMount(){
+        this.setState({
+            stageTitle: this.props.stageTitle,
+            stageId: this.props.stageId
+        });
+    }
+
     openModal() {this.setState({modalIsOpen: true});}
     closeModal() {this.setState({modalIsOpen: false});}
+
+    handleStageTitleChange(event) {
+        this.setState({ stageTitle: event.target.value });
+    }
+
     render() {
         return (
-            <div className="kanban-list-wrapper">
-                <div className="kanban-list">
-                    <div onClick={this.openModal}
-                         className="add-new-stage-kanban-header">
-                        Add New Stage
-                    </div>
-                </div>
+            <span>
+            <button onClick={this.openModal} className="btn btn-warning kanban-edit-stage-title-btn">
+                <span className="glyphicon glyphicon-pencil"></span>
+            </button>
                 <Modal isOpen={this.state.modalIsOpen}
                        onAfterOpen={this.afterOpenModal}
                        onRequestClose={this.closeModal}
-                       contentLabel="Add Stage" >
+                       contentLabel="Edit Stage" >
 
-                    <h2>Add Stage</h2>
+                    <h2>Edit Stage</h2>
 
                     <form method="post"
-                          action="/api/new-stage"
+                          action="/api/edit-stage"
                           className="form-horizontal">
                         <div className="form-group">
                             <div className="col-sm-4">
@@ -44,29 +52,26 @@ class KanbanAddNewStage extends React.Component {
                                 <input className="form-control"
                                        type="text"
                                        name="stage-name"
+                                       value={this.props.stageTitle}
+                                       onChange={this.handleStageTitleChange}
                                        id="stage-name" />
                             </div>
                         </div>
 
                         <input className="form-control"
                                type="hidden"
-                               name="stage-order"
-                               id="stage-order"
-                               value={this.props.order} />
-                        <input className="form-control"
-                               type="hidden"
-                               name="parent-project"
-                               id="parent-project"
-                               value={this.props.parentProject} />
+                               name="stage-id"
+                               id="stage-id"
+                               value={this.props.stageId} />
                         <br/>
                         <button className="btn btn-default" type="submit">
                             Submit
                         </button>
                     </form>
                 </Modal>
-            </div>
+            </span>
 
         )
     }
 }
-export default KanbanAddNewStage;
+export default KanbanEditStageButton;
