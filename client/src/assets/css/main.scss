@@ -206,12 +206,23 @@ body {
     text-align: center;
 }
 
+.kanban-edit-stage-title-btn {
+    float: right;
+    min-width: 50px;
+    border-radius: 0px;
+}
+
+.kanban-edit-stage-title-btn > .glyphicon {
+    font-size: 200%;
+}
+
 .add-new-stage-kanban-header{
     @extend .clickable;
     @extend .kanban-header;
     background-color: white;
 
 }
+
 
 .stage-hover {
     @extend .clickable:hover;

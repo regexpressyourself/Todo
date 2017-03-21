@@ -1,6 +1,9 @@
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
+import KanbanEditStageButton from './KanbanEditStageButton';
+import KanbanIssue from './KanbanIssue';
+import KanbanList from './KanbanList';
 
 var flow = require('lodash.flow');
 
@@ -37,26 +40,22 @@ const stageTarget = {
 class KanbanListWrapper extends React.Component {
     render() {
         const { isOver, isDragging, connectDragSource, connectDropTarget } = this.props;
-        let header = "";
-        if (isOver && !isDragging) {
-            header = (
-                    <div className="kanban-header stage-hover">
-                        {this.props.stageTitle}
-                    </div>
-            )
-        }
-        else {
-            header = (
-                    <div className="kanban-header">
-                        {this.props.stageTitle}
-                    </div>
-            )
-        }
+
+        /* Add hover class if the stage is being dragged and dropped*/
+        let headerClass = (isOver && !isDragging) ?
+                          "kanban-header stage-hover" :
+                          "kanban-header";
 
         return connectDragSource(connectDropTarget(
             <div className="kanban-list-wrapper">
                 <div className="kanban-list">
-                    {header}
+                    <div className={headerClass}>
+                        {this.props.stageTitle}
+                        <KanbanEditStageButton stageTitle={this.props.stageTitle}
+                                               stageId={this.props.stageId} />
+                    </div>
+                    <KanbanList stageTitle={this.props.stageTitle}
+                                stageId={this.props.stageId} />
                 </div>
             </div>
         ));
