@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import KanbanIssue from './KanbanIssue';
+import KanbanAddNewIssue from './KanbanAddNewIssue';
 
 class KanbanList extends React.Component {
     /* Acts as the list of issues for a particular stage*/
@@ -9,6 +11,7 @@ class KanbanList extends React.Component {
             stageId: '',
             issueList: []
         };
+    this.createIssueComponents = this.createIssueComponents.bind(this);
     }
 
     componentDidMount() {
