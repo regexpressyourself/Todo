@@ -4,6 +4,7 @@ module.exports = function(app, passport) {
     const db             = require('./db');
     const {add_project_by_id,
            get_projects_by_email,
+           add_issue,
            get_projects_by_userid,
            get_issues_by_stage_id,
            update_stage_name,
@@ -64,7 +65,6 @@ module.exports = function(app, passport) {
     });
 
     app.get('/api/issues', (req, res) => {
-        console.log(req.body);
         if (req.query &&
             req.query.stageId &&
             req.user &&
@@ -105,6 +105,14 @@ module.exports = function(app, passport) {
     });
 
     app.post('/api/new-issue', (req, res) => {
+        if (req.body &&
+            req.user &&
+            req.user.id &&
+            req.body['name'] &&
+            req.body['stage-id']) {
+            add_issue(req.body);
+            res.redirect(req.get('referer')); // send back from whence ye came
+        }
     });
 
     app.post('/api/update-stage-order', (req, res) => {

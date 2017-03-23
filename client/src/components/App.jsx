@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import {browserHistory} from 'react-router';
 
-import Home  from '../components/Home';
 require('../assets/css/main.scss');
 
 class App extends React.Component {

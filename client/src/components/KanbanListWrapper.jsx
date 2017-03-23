@@ -1,8 +1,6 @@
 import React from 'react';
-import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
 import KanbanEditStageButton from './KanbanEditStageButton';
-import KanbanIssue from './KanbanIssue';
 import KanbanList from './KanbanList';
 
 var flow = require('lodash.flow');

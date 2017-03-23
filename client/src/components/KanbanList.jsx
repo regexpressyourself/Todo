@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import KanbanIssue from './KanbanIssue';
+import KanbanAddNewIssue from './KanbanAddNewIssue';
 
 class KanbanList extends React.Component {
     /* Acts as the list of issues for a particular stage*/
@@ -9,6 +11,7 @@ class KanbanList extends React.Component {
             stageId: '',
             issueList: []
         };
+    this.createIssueComponents = this.createIssueComponents.bind(this);
     }
 
     componentDidMount() {
@@ -18,24 +21,49 @@ class KanbanList extends React.Component {
     }
 
     getIssuesByStageId(stageId) {
-        console.log("one");
         axios.get('/api/issues', {
             params: {
                 stageId: stageId
             }
         })
              .then((response) => {
-                 this.setState({issueList: response.data});
+                 this.createIssueComponents(response.data);
              }).catch((error) => {
                  console.log(error);
              });
     }
 
+    createIssueComponents(issueList) {
+        // make a list of components for each issue
+        let issueComponents = issueList.map((issue) => {
+            return (
+                <KanbanIssue key={issue.id}
+                             name={issue.name}
+                             description={issue.description}
+                             dueDate={issue.dueDate}
+                             endTime={issue.endTime}
+                             id={issue.id}
+                             priority={issue.priority}
+                             stageId={issue.stageId}
+                             startTime={issue.startTime} >
+                </KanbanIssue>
+            )
+        });
+
+        // allow for "add new card" at bottom of list
+        issueComponents.push(<KanbanAddNewIssue stageId={this.props.stageId}
+                                                key={-1}/>);
+
+        this.setState({
+            issueList: issueList,
+            issueComponents: issueComponents
+        });
+    }
+
     render() {
-        console.log(this.state.issueList);
         return (
             <div className="kanban-issue-list">
-                hello
+                {this.state.issueComponents}
             </div>
         )
     }
