@@ -1,6 +1,4 @@
 import React from 'react';
-import NewProject from './NewProject';
-import NewIssue from './NewIssue';
 
 class Home extends React.Component {
     render() {

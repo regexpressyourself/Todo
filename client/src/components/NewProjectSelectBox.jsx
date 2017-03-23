@@ -1,7 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Link } from 'react-router';
-import {Container} from './Bootstrap';
 import Modal from 'react-modal';
 import axios from 'axios';
 
