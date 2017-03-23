@@ -3,7 +3,6 @@ const mysql = require('mysql');
 let db_user = process.env.DB_USER;
 let db_pw   = process.env.DB_PASSWORD;
 
-
 var connection = mysql.createConnection({
     host     : 'localhost',
     user     : db_user,
@@ -173,6 +172,32 @@ export function get_issues_by_stage_id(stage_id, callback) {
         if (callback) callback(results);
     });
 }
+export function add_issue(issue, callback) {
+
+    issue = check_values_on_issue(issue);
+
+    let query_string = "INSERT INTO issues " +
+        "(name, description, dueDate, startTime, endTime, priority, stageId) " +
+        "VALUES ('" + issue.name + "', '" + issue.description + "', '" +
+        issue.date + "', '" + issue.startTime + "', '" + issue.endTime + "', '" +
+        issue.priority + "', " + issue["stage-id"] + ");";
+
+    connection.query(query_string, (error, results, fields) => {
+        if (error) console.log(error);
+        if (callback) callback(results);
+    });
+}
+
+function check_values_on_issue(issue) {
+    issue.name        = issue.name ? issue.name : "";
+    issue.description = issue.description ? issue.description : "";
+    issue.date        = issue.date ? issue.date : "";
+    issue.startTime   = issue.startTime ? issue.startTime : "";
+    issue.endTime     = issue.endTime ? issue.endTime : "";
+    issue.priority    = issue.priority ? issue.priority : "";
+    issue.stageId     = issue.stageId ? issue.stageId : "";
+    return issue;
+}
 
 module.exports = {
     get_userid_by_email:    get_userid_by_email,
@@ -183,6 +208,7 @@ module.exports = {
     get_project_by_id:      get_project_by_id,
     update_stage_order:      update_stage_order,
     update_stage_name:        update_stage_name,
+    add_issue:                add_issue, 
     get_issues_by_stage_id:   get_issues_by_stage_id,
     add_new_stage_to_project: add_new_stage_to_project
 };
