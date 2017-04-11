@@ -56,6 +56,22 @@ body {
 
 }
 
+.center {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.user-form-wrapper {
+    @extend .center;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.hero-button {
+    padding: 20px 50px;
+    margin: 20px;
+}
+
 .ReactModal__Content, .ReactModal__Content--after-open {
     margin: 100px;
     @media screen and (max-width: $bs-xs) {
