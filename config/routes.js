@@ -26,6 +26,11 @@ module.exports = function(app, passport) {
                                    { successRedirect: '/projects',
                                      failureRedirect: '/',
                                      failureFlash: true}));
+    app.get('/logout', (req, res) =>{
+        // Login submits here
+        req.logout();
+        res.redirect('/');
+    });
 
 
     app.get('/api/isLoggedIn', (req, res) => {
