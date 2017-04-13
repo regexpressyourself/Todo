@@ -5,7 +5,7 @@ class SignUp extends React.Component {
         return (
             <div>
                 <h1>
-                    Log In
+                    Sign Up
                 </h1>
                 <hr/>
                 <div className="user-form-wrapper">

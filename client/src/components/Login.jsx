@@ -9,7 +9,7 @@ class Login extends React.Component {
                 </h1>
                 <hr/>
                 <div className="user-form-wrapper">
-                    <form method="post" action="/create-account">
+                    <form method="post" action="/login">
                         <div className="form-group">
                             <label htmlFor="email">Email</label>
                             <input name="email" type="text" className="form-control" />
