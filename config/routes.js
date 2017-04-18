@@ -33,6 +33,12 @@ module.exports = function(app, passport) {
     });
 
 
+    app.get('/api/currentUserInfo', (req, res) => {
+        console.log("hello");
+        console.log(req);
+        console.log(res);
+    });
+
     app.get('/api/isLoggedIn', (req, res) => {
         // Check if user is logged in
         let isLoggedIn = false;
